@@ -3,6 +3,8 @@ package ma.octo.assignement.mapper;
 import ma.octo.assignement.domain.Virement;
 import ma.octo.assignement.dto.VirementDto;
 
+import java.util.Date;
+
 public class VirementMapper {
 
     private static VirementDto virementDto;
@@ -15,5 +17,15 @@ public class VirementMapper {
 
         return virementDto;
 
+    }
+
+    public static Virement map(VirementDto virementDto){
+        Virement virement = new Virement();
+
+        virement.setMotifVirement(virementDto.getMotif());
+        virement.setMontantVirement(virementDto.getMontantVirement());
+        virement.setDateExecution(new Date());
+
+        return  virement;
     }
 }
