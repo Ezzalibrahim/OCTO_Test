@@ -2,10 +2,15 @@ package ma.octo.assignement;
 
 import ma.octo.assignement.domain.Compte;
 import ma.octo.assignement.domain.Utilisateur;
+import ma.octo.assignement.domain.Versement;
 import ma.octo.assignement.domain.Virement;
 import ma.octo.assignement.repository.CompteRepository;
 import ma.octo.assignement.repository.UtilisateurRepository;
 import ma.octo.assignement.repository.VirementRepository;
+import ma.octo.assignement.service.CompteService;
+import ma.octo.assignement.service.UtilisateurService;
+import ma.octo.assignement.service.VersementService;
+import ma.octo.assignement.service.VirementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -17,11 +22,13 @@ import java.util.Date;
 @SpringBootApplication
 public class AssignementApplication implements CommandLineRunner {
 	@Autowired
-	private CompteRepository compteRepository;
+	private CompteService compteService;
 	@Autowired
-	private UtilisateurRepository utilisateurRepository;
+	private UtilisateurService utilisateurService;
 	@Autowired
-	private VirementRepository virementRepository;
+	private VirementService virementService;
+	@Autowired
+	private VersementService versementService;
 
 	public static void main(String[] args) {
 		SpringApplication.run(AssignementApplication.class, args);
@@ -35,7 +42,7 @@ public class AssignementApplication implements CommandLineRunner {
 		utilisateur1.setFirstname("first1");
 		utilisateur1.setGender("Male");
 
-		utilisateurRepository.save(utilisateur1);
+		utilisateurService.save(utilisateur1);
 
 
 		Utilisateur utilisateur2 = new Utilisateur();
@@ -44,23 +51,23 @@ public class AssignementApplication implements CommandLineRunner {
 		utilisateur2.setFirstname("first2");
 		utilisateur2.setGender("Female");
 
-		utilisateurRepository.save(utilisateur2);
+		utilisateurService.save(utilisateur2);
 
 		Compte compte1 = new Compte();
 		compte1.setNrCompte("010000A000001000");
-		compte1.setRib("RIB1");
+		compte1.setRib("RIB1010000A00000100000001000");
 		compte1.setSolde(BigDecimal.valueOf(200000L));
 		compte1.setUtilisateur(utilisateur1);
 
-		compteRepository.save(compte1);
+		compteService.save(compte1);
 
 		Compte compte2 = new Compte();
 		compte2.setNrCompte("010000B025001000");
-		compte2.setRib("RIB2");
+		compte2.setRib("RIB2010000B02500100025001000");
 		compte2.setSolde(BigDecimal.valueOf(140000L));
 		compte2.setUtilisateur(utilisateur2);
 
-		compteRepository.save(compte2);
+		compteService.save(compte2);
 
 		Virement v = new Virement();
 		v.setMontantVirement(BigDecimal.TEN);
@@ -69,6 +76,14 @@ public class AssignementApplication implements CommandLineRunner {
 		v.setDateExecution(new Date());
 		v.setMotifVirement("Assignment 2021");
 
-		virementRepository.save(v);
+		virementService.save(v);
+
+		Versement versement = new Versement();
+		versement.setMotifVersement("motif");
+		versement.setNom_prenom_emetteur("user1");
+		versement.setCompteBeneficiaire(compte1);
+		versement.setMontantVirement(BigDecimal.valueOf(120));
+
+		versementService.save(versement);
 	}
 }
