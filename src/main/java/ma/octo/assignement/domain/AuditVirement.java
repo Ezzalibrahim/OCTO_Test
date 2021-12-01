@@ -5,7 +5,7 @@ import ma.octo.assignement.domain.util.EventType;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "AUDIT")
+@Table(name = "AuditVirement")
 public class AuditVirement {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
