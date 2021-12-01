@@ -14,9 +14,9 @@ import javax.transaction.Transactional;
 
 @Service
 @Transactional
-public class AutiService {
+public class AuditVirementService {
 
-    Logger LOGGER = LoggerFactory.getLogger(AutiService.class);
+    Logger LOGGER = LoggerFactory.getLogger(AuditVirementService.class);
 
     @Autowired
     private AuditVirementRepository auditVirementRepository;
@@ -35,13 +35,5 @@ public class AutiService {
     }
 
 
-    public void auditVersement(String message) {
 
-        LOGGER.info("Audit de l'événement {}", EventType.VERSEMENT);
-
-        AuditVersement auditVersement = new AuditVersement();
-        auditVersement.setEventType(EventType.VERSEMENT);
-        auditVersement.setMessage(message);
-        auditVirementRepository.save(auditVersement);
-    }
 }
