@@ -13,6 +13,8 @@ public class Compte {
   @Column(length = 16, unique = true)
   private String nrCompte;
 
+  // rib must be unique
+  @Column(length = 28 , unique = true)
   private String rib;
 
   @Column(precision = 16, scale = 2)
